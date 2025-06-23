@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Extensions;
 
 namespace BusinessEntities
@@ -74,7 +75,11 @@ namespace BusinessEntities
 
         public void SetAge(int age)
         {
-            _email = _name;
+            if (age <= 0)
+            {
+                throw new ArgumentNullException("Invalid age provided.");
+            }
+            _age = age;
         }
 
         public void SetMonthlySalary(decimal? monthlySalary)

@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace WebApi.Controllers
 {
@@ -19,6 +20,18 @@ namespace WebApi.Controllers
         public HttpResponseMessage DoesNotExist()
         {
             return ControllerContext.Request.CreateResponse(HttpStatusCode.NotFound);
+        }
+        
+        public HttpResponseMessage AlreadyExists()
+        {
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.Conflict);
+        }
+        
+        // NOTE: I saw there was a BadRequest method in ApiController, but it returns a BadRequestResult.
+        // I figured this was a better route for now.
+        public HttpResponseMessage InvalidRequest(string errorMessage)
+        {
+            return ControllerContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
         }
     }
 }
