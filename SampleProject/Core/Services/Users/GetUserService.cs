@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BusinessEntities;
 using Common;
-using Data.Repositories;
 using Data.Repositories.Interfaces;
 
 namespace Core.Services.Users

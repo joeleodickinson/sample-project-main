@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BusinessEntities;
 
-namespace Core.Services.Orders
+namespace Core.Services.Orders.Interfaces
 {
     public interface IGetProductService
     {

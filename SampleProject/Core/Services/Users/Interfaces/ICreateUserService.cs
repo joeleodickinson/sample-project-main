@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BusinessEntities;
 
-namespace Core.Services.Users
+namespace Core.Services.Users.Interfaces
 {
     public interface ICreateUserService
     {
