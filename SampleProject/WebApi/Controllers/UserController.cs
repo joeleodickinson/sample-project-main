@@ -65,7 +65,7 @@ namespace WebApi.Controllers
         public HttpResponseMessage DeleteUser(Guid userId)
         {
             var user = _getUserService.GetUser(userId);
-            if (user == null)
+            if (user is null)
             {
                 return DoesNotExist();
             }
@@ -78,6 +78,12 @@ namespace WebApi.Controllers
         public HttpResponseMessage GetUser(Guid userId)
         {
             var user = _getUserService.GetUser(userId);
+            
+            if (user is null)
+            {
+                return DoesNotExist();
+            }
+            
             return Found(new UserData(user));
         }
 
