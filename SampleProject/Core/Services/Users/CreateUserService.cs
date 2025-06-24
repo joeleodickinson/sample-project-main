@@ -4,6 +4,7 @@ using BusinessEntities;
 using Common;
 using Core.Factories;
 using Data.Repositories;
+using Data.Repositories.Interfaces;
 
 namespace Core.Services.Users
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BusinessEntities;
 using Common;
+using Data.Repositories.Interfaces;
 using Raven.Abstractions.Data;
 using Raven.Client;
 using Raven.Client.Indexes;

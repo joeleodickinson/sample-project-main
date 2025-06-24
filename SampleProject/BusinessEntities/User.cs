@@ -8,7 +8,6 @@ namespace BusinessEntities
     public class User : IdObject
     {
         private readonly List<string> _tags = new List<string>();
-        private int _age;
         private string _email;
         private decimal? _monthlySalary;
         private string _name;
@@ -38,11 +37,7 @@ namespace BusinessEntities
             private set => _monthlySalary = value;
         }
 
-        public int Age
-        {
-            get => _age;
-            private set => _age = value;
-        }
+        public int Age { get; private set; }
 
         public IEnumerable<string> Tags
         {
@@ -79,7 +74,7 @@ namespace BusinessEntities
             {
                 throw new ArgumentNullException("Invalid age provided.");
             }
-            _age = age;
+            Age = age;
         }
 
         public void SetMonthlySalary(decimal? monthlySalary)

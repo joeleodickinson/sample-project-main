@@ -15,4 +15,8 @@
         <ProjectReference Include="..\Data\Data.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Products\" />
+    </ItemGroup>
+
 </Project>

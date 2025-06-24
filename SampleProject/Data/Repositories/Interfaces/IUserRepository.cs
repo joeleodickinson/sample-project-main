@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BusinessEntities;
 
-namespace Data.Repositories
+namespace Data.Repositories.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
