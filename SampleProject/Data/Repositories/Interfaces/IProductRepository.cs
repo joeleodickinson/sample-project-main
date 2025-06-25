@@ -8,5 +8,6 @@ namespace Data.Repositories.Interfaces
         IEnumerable<Product> GetAllProducts();
         
         IEnumerable<Product> GetProductsByType(ProductTypes productType);
+        void DeleteAll();
     }
 }

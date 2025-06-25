@@ -8,6 +8,7 @@ namespace WebApi.Models.Users
         public string Name { get; set; }
         public string Email { get; set; }
         public UserTypes Type { get; set; }
+        public int Age { get; set; }
         public decimal? AnnualSalary { get; set; }
         public IEnumerable<string> Tags { get; set; } // Note: I am assuming it is valid for a user to have no tags.
     }
@@ -27,6 +28,12 @@ namespace WebApi.Models.Users
             if (string.IsNullOrWhiteSpace(model.Email)) // Additional validation for email can be added here
             {
                 errorMessage = "Email is required.";
+                return false;
+            }
+            
+            if (model.Age <= 0)
+            {
+                errorMessage = "Invalid age. Age must be greater than zero.";
                 return false;
             }
 

@@ -79,7 +79,17 @@ namespace BusinessEntities
 
         public void SetMonthlySalary(decimal? monthlySalary)
         {
-            _monthlySalary = monthlySalary;
+            if (monthlySalary < 0)
+            {
+                throw new ArgumentOutOfRangeException("Monthly salary cannot be negative.");
+            }
+            if (!monthlySalary.HasValue)
+            {
+                _monthlySalary = null;
+                return;
+            }
+            
+            _monthlySalary = Math.Round(monthlySalary.Value, 2);
         }
 
         public void SetTags(IEnumerable<string> tags)

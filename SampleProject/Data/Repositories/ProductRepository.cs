@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using BusinessEntities;
+using Common;
 using Data.Repositories.Interfaces;
 
 namespace Data.Repositories
 {
+    // Singleton repository since it is a simple in-memory store.
+    [AutoRegister(AutoRegisterTypes.Singleton)]
     public class ProductRepository : IProductRepository
     {
         // Simulating a data store with an in-memory dictionary
-        private Dictionary<Guid, Product> _products = new Dictionary<Guid, Product>();
+        private Dictionary<Guid, Product> _products;
+        
+        public ProductRepository()
+        {
+            _products = new Dictionary<Guid, Product>();
+        }
         
         public void Save(Product entity)
         {
@@ -46,7 +54,7 @@ namespace Data.Repositories
                 return product;
             }
 
-            throw new KeyNotFoundException("Product not found in the repository");
+            return null;
         }
 
         public IEnumerable<Product> GetAllProducts()
@@ -62,6 +70,11 @@ namespace Data.Repositories
             }
             
             return _products.Values.Where(x => x.Type == productType);
+        }
+
+        public void DeleteAll()
+        {
+            _products.Clear();
         }
     }
 }

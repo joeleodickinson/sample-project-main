@@ -29,5 +29,11 @@ namespace BusinessEntities
 
             Type = type;
         }
+        
+        public void SetDescription(string description)
+        {
+            // Description can be null or empty, no validation needed.
+            Description = description;
+        }
     }
 }
