@@ -181,6 +181,9 @@
         </Compile>
         <Compile Include="Models\EnumData.cs"/>
         <Compile Include="Models\IdObjectData.cs"/>
+        <Compile Include="Models\Orders\OrderData.cs" />
+        <Compile Include="Models\Orders\OrderModel.cs" />
+        <Compile Include="Models\Orders\ProductOrderData.cs" />
         <Compile Include="Models\Products\ProductData.cs" />
         <Compile Include="Models\Products\ProductModel.cs" />
         <Compile Include="Models\Users\UserData.cs" />
@@ -284,9 +287,6 @@
             <Project>{08eed152-bc07-4b9f-aca6-28aea1511ea0}</Project>
             <Name>Data</Name>
         </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Models\Orders\" />
     </ItemGroup>
     <PropertyGroup>
         <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

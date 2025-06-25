@@ -12,13 +12,8 @@ namespace Data.Repositories
     public class ProductRepository : IProductRepository
     {
         // Simulating a data store with an in-memory dictionary
-        private Dictionary<Guid, Product> _products;
-        
-        public ProductRepository()
-        {
-            _products = new Dictionary<Guid, Product>();
-        }
-        
+        private readonly Dictionary<Guid, Product> _products = new Dictionary<Guid, Product>();
+
         public void Save(Product entity)
         {
             if (entity == null)
