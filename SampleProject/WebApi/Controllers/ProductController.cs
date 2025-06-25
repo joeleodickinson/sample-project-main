@@ -58,7 +58,7 @@ namespace WebApi.Controllers
             return Found(new ProductData(product));
         }
         
-        [Route("all")]
+        [Route("list")]
         [HttpGet]
         public HttpResponseMessage GetAllProducts()
         {
@@ -77,6 +77,14 @@ namespace WebApi.Controllers
                 return DoesNotExist();
             }
             _deleteProductService.Delete(product);
+            return Found();
+        }
+        
+        [Route("clear")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteAllProducts()
+        {
+            _deleteProductService.DeleteAll();
             return Found();
         }
     }
