@@ -221,11 +221,54 @@
 							"response": []
 						},
 						{
+							"name": "Create Product 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Product A\",\r\n    \"description\": \"test description\",\r\n    \"type\": 1,\r\n    \"Price\": 150.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/products/20bd471d-d7c7-4cfb-b4e5-c05e6eb38862/create"
+							},
+							"response": []
+						},
+						{
 							"name": "list",
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:49834/products/list"
+								"url": {
+									"raw": "http://localhost:49834/products/list?skip=0&take=3&type=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products",
+										"list"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "0"
+										},
+										{
+											"key": "take",
+											"value": "3"
+										},
+										{
+											"key": "type",
+											"value": "1"
+										}
+									]
+								}
 							},
 							"response": []
 						},
@@ -293,7 +336,32 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/orders"
+								"url": {
+									"raw": "http://localhost:49834/orders/list?skip=0&take=5&userId=9422740e-6426-4c46-8445-3f5274a62424",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders",
+										"list"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "0"
+										},
+										{
+											"key": "take",
+											"value": "5"
+										},
+										{
+											"key": "userId",
+											"value": "9422740e-6426-4c46-8445-3f5274a62424"
+										}
+									]
+								}
 							},
 							"response": []
 						},
