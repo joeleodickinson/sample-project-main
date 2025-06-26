@@ -31,7 +31,7 @@ namespace Core.Services.Orders
 
         public void RemoveProductOrder(Order order, ProductOrder productOrder)
         {
-            throw new NotImplementedException();
+            order.RemoveProductOrder(productOrder);
         }
     }
 }

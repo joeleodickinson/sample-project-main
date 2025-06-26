@@ -99,6 +99,59 @@ namespace WebApi.Controllers
             _updateOrderService.UpdateProductQuantity(order, model.ProductId, model.Quantity);
             return Found(new OrderData(order));
         }
+        
+        [Route("{orderId:guid}/add-product")]
+        [HttpPost]
+        public HttpResponseMessage AddProductToOrder(Guid orderId, [FromBody] ProductOrderModel model)
+        {
+            if (!model.Validate(out var errorMessage))
+            {
+                return InvalidRequest(errorMessage);
+            }
+            
+            var order = _getOrderService.GetOrder(orderId);
+            if (order is null)
+            {
+                return DoesNotExist();
+            }
+            
+            var productEntity = _getProductService.GetProduct(model.ProductId);
+            if (productEntity is null)
+            {
+                return DoesNotExist();
+            }
+            
+            var productOrder = new ProductOrder();
+            productOrder.SetProduct(productEntity);
+            productOrder.SetQuantity(model.Quantity);
+            
+            _updateOrderService.AddProductOrder(order, productOrder);
+            return Found(new OrderData(order));
+        }
+        
+        [Route("{orderId:guid}/remove-product")]
+        [HttpPost]
+        public HttpResponseMessage RemoveProductFromOrder(Guid orderId, [FromBody] ProductOrderModel model)
+        {
+            var order = _getOrderService.GetOrder(orderId);
+            if (order is null)
+            {
+                return DoesNotExist();
+            }
+            
+            var productEntity = _getProductService.GetProduct(model.ProductId);
+            if (productEntity is null)
+            {
+                return DoesNotExist();
+            }
+            
+            // Note: no need to check or set the quantity here.
+            var productOrder = new ProductOrder();
+            productOrder.SetProduct(productEntity);
+            
+            _updateOrderService.RemoveProductOrder(order, productOrder);
+            return Found(new OrderData(order));
+        }
 
         [Route("{orderId:guid}/delete")]
         [HttpDelete]
