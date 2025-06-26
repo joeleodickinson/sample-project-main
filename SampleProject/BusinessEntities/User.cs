@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common.Extensions;
 
 namespace BusinessEntities
@@ -7,7 +8,6 @@ namespace BusinessEntities
     public class User : IdObject
     {
         private readonly List<string> _tags = new List<string>();
-        private int _age;
         private string _email;
         private decimal? _monthlySalary;
         private string _name;
@@ -37,11 +37,7 @@ namespace BusinessEntities
             private set => _monthlySalary = value;
         }
 
-        public int Age
-        {
-            get => _age;
-            private set => _age = value;
-        }
+        public int Age { get; private set; }
 
         public IEnumerable<string> Tags
         {
@@ -62,7 +58,7 @@ namespace BusinessEntities
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new ArgumentNullException("Name was not provided.");
+                throw new ArgumentNullException("Email was not provided.");
             }
             _email = email;
         }
@@ -74,12 +70,26 @@ namespace BusinessEntities
 
         public void SetAge(int age)
         {
-            _email = _name;
+            if (age <= 0)
+            {
+                throw new ArgumentNullException("Invalid age provided.");
+            }
+            Age = age;
         }
 
         public void SetMonthlySalary(decimal? monthlySalary)
         {
-            _monthlySalary = monthlySalary;
+            if (monthlySalary < 0)
+            {
+                throw new ArgumentOutOfRangeException("Monthly salary cannot be negative.");
+            }
+            if (!monthlySalary.HasValue)
+            {
+                _monthlySalary = null;
+                return;
+            }
+            
+            _monthlySalary = Math.Round(monthlySalary.Value, 2);
         }
 
         public void SetTags(IEnumerable<string> tags)

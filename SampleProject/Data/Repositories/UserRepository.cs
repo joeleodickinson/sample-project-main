@@ -3,6 +3,7 @@ using System.Linq;
 using BusinessEntities;
 using Common;
 using Data.Indexes;
+using Data.Repositories.Interfaces;
 using Raven.Client;
 
 namespace Data.Repositories
@@ -49,6 +50,17 @@ namespace Data.Repositories
                 }
                 query = query.WhereEquals("Email", email);
             }
+            return query.ToList();
+        }
+
+        public IEnumerable<User> GetByTag(string tag)
+        {
+            var query = _documentSession.Advanced.DocumentQuery<User, UsersListIndex>();
+            
+            // Note: not normalizing tag here or tags in the create/update because
+            // according to quick search, RavenDB handles case insensitivity in queries.
+            query = query.WhereEquals("Tags", tag);
+            
             return query.ToList();
         }
 

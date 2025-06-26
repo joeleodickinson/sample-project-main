@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using BusinessEntities;
+using Core.Services.Orders.Interfaces;
 using Core.Services.Users;
+using Core.Services.Users.Interfaces;
+using WebApi.Models.Orders;
 using WebApi.Models.Users;
 
 namespace WebApi.Controllers
@@ -14,13 +18,19 @@ namespace WebApi.Controllers
         private readonly ICreateUserService _createUserService;
         private readonly IDeleteUserService _deleteUserService;
         private readonly IGetUserService _getUserService;
+        private readonly IGetOrderService _getOrderService;
         private readonly IUpdateUserService _updateUserService;
 
-        public UserController(ICreateUserService createUserService, IDeleteUserService deleteUserService, IGetUserService getUserService, IUpdateUserService updateUserService)
+        public UserController(ICreateUserService createUserService,
+            IDeleteUserService deleteUserService,
+            IGetUserService getUserService,
+            IGetOrderService getOrderService,
+            IUpdateUserService updateUserService)
         {
             _createUserService = createUserService;
             _deleteUserService = deleteUserService;
             _getUserService = getUserService;
+            _getOrderService = getOrderService;
             _updateUserService = updateUserService;
         }
 
@@ -28,7 +38,16 @@ namespace WebApi.Controllers
         [HttpPost]
         public HttpResponseMessage CreateUser(Guid userId, [FromBody] UserModel model)
         {
-            var user = _createUserService.Create(userId, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags);
+            if (_getUserService.GetUser(userId) != null)
+            {
+                return AlreadyExists();
+            }
+
+            if (!model.Validate(out var errorMessage))
+            {
+                return InvalidRequest(errorMessage);
+            }
+            var user = _createUserService.Create(userId, model.Name, model.Email, model.Type, model.Age, model.AnnualSalary, model.Tags);
             return Found(new UserData(user));
         }
 
@@ -36,12 +55,17 @@ namespace WebApi.Controllers
         [HttpPost]
         public HttpResponseMessage UpdateUser(Guid userId, [FromBody] UserModel model)
         {
+            if (!model.Validate(out var errorMessage))
+            {
+                return InvalidRequest(errorMessage);
+            }
+            
             var user = _getUserService.GetUser(userId);
-            if (user == null)
+            if (user is null)
             {
                 return DoesNotExist();
             }
-            _updateUserService.Update(user, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags);
+            _updateUserService.Update(user, model.Name, model.Email, model.Type, model.Age, model.AnnualSalary, model.Tags);
             return Found(new UserData(user));
         }
 
@@ -50,7 +74,7 @@ namespace WebApi.Controllers
         public HttpResponseMessage DeleteUser(Guid userId)
         {
             var user = _getUserService.GetUser(userId);
-            if (user == null)
+            if (user is null)
             {
                 return DoesNotExist();
             }
@@ -63,6 +87,12 @@ namespace WebApi.Controllers
         public HttpResponseMessage GetUser(Guid userId)
         {
             var user = _getUserService.GetUser(userId);
+            
+            if (user is null)
+            {
+                return DoesNotExist();
+            }
+            
             return Found(new UserData(user));
         }
 
@@ -89,7 +119,11 @@ namespace WebApi.Controllers
         [HttpGet]
         public HttpResponseMessage GetUsersByTag(string tag)
         {
-            throw new NotImplementedException();
+            
+            var users = _getUserService.GetUsersByTag(tag)
+                .Select(q => new UserData(q))
+                .ToList();
+            return Found(users);
         }
     }
 }

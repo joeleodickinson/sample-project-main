@@ -18,5 +18,7 @@ namespace WebApi.Models.Users
         public EnumData Type { get; set; }
         public decimal? MonthlySalary { get; set; }
         public int Age { get; set; }
+        
+        // Note: I am going to assume tags are excluded here on purpose.
     }
 }

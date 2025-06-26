@@ -1,5 +1,6 @@
 ﻿using System;
 using BusinessEntities;
+using WebApi.Models.Products;
 
 namespace WebApi.Models
 {
