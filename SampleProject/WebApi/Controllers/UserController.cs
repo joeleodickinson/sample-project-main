@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using BusinessEntities;
+using Core.Services.Orders.Interfaces;
 using Core.Services.Users;
 using Core.Services.Users.Interfaces;
+using WebApi.Models.Orders;
 using WebApi.Models.Users;
 
 namespace WebApi.Controllers
@@ -15,13 +18,19 @@ namespace WebApi.Controllers
         private readonly ICreateUserService _createUserService;
         private readonly IDeleteUserService _deleteUserService;
         private readonly IGetUserService _getUserService;
+        private readonly IGetOrderService _getOrderService;
         private readonly IUpdateUserService _updateUserService;
 
-        public UserController(ICreateUserService createUserService, IDeleteUserService deleteUserService, IGetUserService getUserService, IUpdateUserService updateUserService)
+        public UserController(ICreateUserService createUserService,
+            IDeleteUserService deleteUserService,
+            IGetUserService getUserService,
+            IGetOrderService getOrderService,
+            IUpdateUserService updateUserService)
         {
             _createUserService = createUserService;
             _deleteUserService = deleteUserService;
             _getUserService = getUserService;
+            _getOrderService = getOrderService;
             _updateUserService = updateUserService;
         }
 
@@ -96,6 +105,28 @@ namespace WebApi.Controllers
                                        .Select(q => new UserData(q))
                                        .ToList();
             return Found(users);
+        }
+        
+        // Note: I am unsure if this belongs here or in the OrdersController since it is related to orders.
+        // However, it makes sense to have it here as it retrieves orders by user and I did not want to conflate
+        // userId with orderId in the route.
+        [Route("{userId:guid}/orders")]
+        [HttpGet]
+        public HttpResponseMessage GetAllOrdersByUser(Guid userId)
+        {
+            var user = _getUserService.GetUser(userId);
+            if (user is null)
+            {
+                return DoesNotExist();
+            }
+            
+            var orders = _getOrderService.GetOrdersByUser(userId);
+            var orderDataList = new List<OrderData>();
+            foreach (var order in orders)
+            {
+                orderDataList.Add(new OrderData(order));
+            }
+            return Found(orderDataList);
         }
 
         [Route("clear")]

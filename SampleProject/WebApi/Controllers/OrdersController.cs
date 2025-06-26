@@ -80,27 +80,6 @@ namespace WebApi.Controllers
             
             return Found(new OrderData(order));
         }
-        
-        // Note: I am unsure if this belongs here or in the UserController, but since it is an order related operation,
-        // I decided to keep it here for now, though the use of the userId in the route might be confusing.
-        [Route("{userId:guid}/list")]
-        [HttpGet]
-        public HttpResponseMessage GetAllOrdersByUser(Guid userId)
-        {
-            var user = _getUserService.GetUser(userId);
-            if (user is null)
-            {
-                return DoesNotExist();
-            }
-            
-            var orders = _getOrderService.GetOrdersByUser(userId);
-            var orderDataList = new List<OrderData>();
-            foreach (var order in orders)
-            {
-                orderDataList.Add(new OrderData(order));
-            }
-            return Found(orderDataList);
-        }
 
         [Route("{orderId:guid}/update-quantity")]
         [HttpPost]
