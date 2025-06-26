@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using BusinessEntities;
 using Core.Services.Orders;
 using Core.Services.Orders.Interfaces;
 using Core.Services.Products.Interfaces;
@@ -57,9 +58,10 @@ namespace WebApi.Controllers
         
         [Route("list")]
         [HttpGet]
-        public HttpResponseMessage GetAllProducts()
+        public HttpResponseMessage GetAllProducts(int skip, int take, ProductTypes? type = null)
         {
-            var products = _getProductService.GetAllProducts()
+            var products = _getProductService.GetAllProducts(type)
+                .Skip(skip).Take(take)
                 .Select(p => new ProductData(p)).ToList();
             return Found(products);
         }

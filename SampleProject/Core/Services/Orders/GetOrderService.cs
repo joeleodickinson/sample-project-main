@@ -26,18 +26,19 @@ namespace Core.Services.Orders
             return _orderRepository.Get(id);
         }
 
-        public IEnumerable<Order> GetAllOrders()
+        public IEnumerable<Order> GetAllOrders(Guid? userId = null)
         {
-            return _orderRepository.GetAllOrders();
-        }
-
-        public IEnumerable<Order> GetOrdersByUser(Guid userId)
-        {
-            if (userId == Guid.Empty)
+            if (userId.HasValue && userId.Value == Guid.Empty)
             {
-                throw new ArgumentException("User ID cannot be empty.");
+                throw new ArgumentException("Invalid User ID");
             }
-            return _orderRepository.GetOrdersByUser(userId);
+            
+            if (userId.HasValue)
+            {
+                return _orderRepository.GetOrdersByUser(userId.Value);
+            }
+            
+            return _orderRepository.GetAllOrders();
         }
     }
 }

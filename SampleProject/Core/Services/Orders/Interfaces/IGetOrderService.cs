@@ -7,7 +7,6 @@ namespace Core.Services.Orders.Interfaces
     public interface IGetOrderService
     {
         Order GetOrder(Guid id);
-        IEnumerable<Order> GetAllOrders();
-        IEnumerable<Order> GetOrdersByUser(Guid userId);
+        IEnumerable<Order> GetAllOrders(Guid? userId = null);
     }
 }

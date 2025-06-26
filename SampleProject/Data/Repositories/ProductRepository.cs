@@ -52,8 +52,18 @@ namespace Data.Repositories
             return null;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts(ProductTypes? type = null)
         {
+            if (type.HasValue )
+            {
+                if (!Enum.IsDefined(typeof(ProductTypes), type.Value))
+                {
+                    throw new ArgumentException("Invalid product type", nameof(type));
+                }
+                
+                return _products.Values.Where(x => x.Type == type.Value);
+            }
+            
             return _products.Values;
         }
 

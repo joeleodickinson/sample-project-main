@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BusinessEntities;
 
-namespace Core.Services.Orders.Interfaces
+namespace Core.Services.Products.Interfaces
 {
     public interface IGetProductService
     {
@@ -17,7 +17,7 @@ namespace Core.Services.Orders.Interfaces
         /// Retrieves all products.
         /// </summary>
         /// <returns>A collection of all products.</returns>
-        IEnumerable<Product> GetAllProducts();
+        IEnumerable<Product> GetAllProducts(ProductTypes? type = null);
         
         /// <summary>
         /// Retrieves products filtered by the specified product type.

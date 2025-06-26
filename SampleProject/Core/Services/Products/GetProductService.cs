@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BusinessEntities;
 using Common;
 using Core.Services.Orders.Interfaces;
+using Core.Services.Products.Interfaces;
 using Data.Repositories.Interfaces;
 
 namespace Core.Services.Products
@@ -22,7 +23,7 @@ namespace Core.Services.Products
             return product;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts(ProductTypes? type = null)
         {
             return _productRepository.GetAllProducts();
         }

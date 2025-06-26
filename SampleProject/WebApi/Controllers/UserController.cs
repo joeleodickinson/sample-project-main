@@ -106,28 +106,6 @@ namespace WebApi.Controllers
                                        .ToList();
             return Found(users);
         }
-        
-        // Note: I am unsure if this belongs here or in the OrdersController since it is related to orders.
-        // However, it makes sense to have it here as it retrieves orders by user and I did not want to conflate
-        // userId with orderId in the route.
-        [Route("{userId:guid}/orders")]
-        [HttpGet]
-        public HttpResponseMessage GetAllOrdersByUser(Guid userId)
-        {
-            var user = _getUserService.GetUser(userId);
-            if (user is null)
-            {
-                return DoesNotExist();
-            }
-            
-            var orders = _getOrderService.GetOrdersByUser(userId);
-            var orderDataList = new List<OrderData>();
-            foreach (var order in orders)
-            {
-                orderDataList.Add(new OrderData(order));
-            }
-            return Found(orderDataList);
-        }
 
         [Route("clear")]
         [HttpDelete]

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "26c5397e-2163-4643-ae23-13c5eb581e25",
+		"_postman_id": "89fda6fa-7b42-4d99-aed7-1644629d8a85",
 		"name": "LendingPad-SampleProject",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30292534"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "46088708"
 	},
 	"item": [
 		{
@@ -14,18 +14,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:49834/users/clear",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"clear"
-							]
-						}
+						"url": "http://localhost:49834/users/clear"
 					},
 					"response": []
 				},
@@ -43,19 +32,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/1422740e-6426-4c46-8445-3f5274a62424/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"1422740e-6426-4c46-8445-3f5274a62424",
-								"create"
-							]
-						}
+						"url": "http://localhost:49834/users/1422740e-6426-4c46-8445-3f5274a62424/create"
 					},
 					"response": []
 				},
@@ -73,19 +50,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"9422740e-6426-4c46-8445-3f5274a62424",
-								"create"
-							]
-						}
+						"url": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/create"
 					},
 					"response": []
 				},
@@ -103,19 +68,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/8722740e-6426-4c46-8445-3f5274a62424/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"8722740e-6426-4c46-8445-3f5274a62424",
-								"create"
-							]
-						}
+						"url": "http://localhost:49834/users/8722740e-6426-4c46-8445-3f5274a62424/create"
 					},
 					"response": []
 				}
@@ -138,19 +91,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/1422740e-6426-4c46-8445-3f5274a62424/create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"1422740e-6426-4c46-8445-3f5274a62424",
-								"create"
-							]
-						}
+						"url": "http://localhost:49834/users/1422740e-6426-4c46-8445-3f5274a62424/create"
 					},
 					"response": []
 				},
@@ -168,19 +109,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/update",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"9422740e-6426-4c46-8445-3f5274a62424",
-								"update"
-							]
-						}
+						"url": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/update"
 					},
 					"response": []
 				},
@@ -198,19 +127,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/update",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"9422740e-6426-4c46-8445-3f5274a62424",
-								"update"
-							]
-						}
+						"url": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/update"
 					},
 					"response": []
 				},
@@ -228,19 +145,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/update",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "49834",
-							"path": [
-								"users",
-								"9422740e-6426-4c46-8445-3f5274a62424",
-								"update"
-							]
-						}
+						"url": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/update"
 					},
 					"response": []
 				},
@@ -278,11 +183,245 @@
 			"item": [
 				{
 					"name": "Products",
-					"item": []
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Product A\",\r\n    \"description\": \"test description\",\r\n    \"type\": 1,\r\n    \"Price\": 150.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/products/20bd471d-d7c7-4cfb-b4e5-c05e6eb38862/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Product 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Product B\",\r\n    \"description\": \"test description 2\",\r\n    \"type\": 2,\r\n    \"Price\": 616.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/products/92f9bbea-591d-49ea-b16a-5a5da62bb5b6/create"
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:49834/products/list"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete 1",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:49834/products/92f9bbea-591d-49ea-b16a-5a5da62bb5b6/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "clear",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:49834/products/clear"
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Orders",
-					"item": []
+					"item": [
+						{
+							"name": "Create Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\": \"9422740e-6426-4c46-8445-3f5274a62424\",\r\n    \"products\": {\r\n        \"20bd471d-d7c7-4cfb-b4e5-c05e6eb38862\": 2,\r\n        \"92f9bbea-591d-49ea-b16a-5a5da62bb5b6\": 1\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/orders/d9924383-a269-4881-9c34-72517e0ff53c/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\": \"8722740e-6426-4c46-8445-3f5274a62424\",\r\n    \"products\": {\r\n        \"20bd471d-d7c7-4cfb-b4e5-c05e6eb38862\": 20,\r\n        \"92f9bbea-591d-49ea-b16a-5a5da62bb5b6\": 15\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/orders/ab69f299-53bc-4293-b4c2-dea0c59ecaf3/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Orders by User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:49834/users/9422740e-6426-4c46-8445-3f5274a62424/orders"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:49834/orders/d9924383-a269-4881-9c34-72517e0ff53c"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order quantity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": \"20bd471d-d7c7-4cfb-b4e5-c05e6eb38862\",\r\n    \"quantity\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/orders/d9924383-a269-4881-9c34-72517e0ff53c/update-quantity"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:49834/orders/d9924383-a269-4881-9c34-72517e0ff53c/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove From Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": \"20bd471d-d7c7-4cfb-b4e5-c05e6eb38862\",\r\n    \"quantity\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/orders/d9924383-a269-4881-9c34-72517e0ff53c/remove-product"
+							},
+							"response": []
+						},
+						{
+							"name": "Add to Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": \"20bd471d-d7c7-4cfb-b4e5-c05e6eb38862\",\r\n    \"quantity\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:49834/orders/d9924383-a269-4881-9c34-72517e0ff53c/add-product"
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:49834/orders/list"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/users/list?skip=0&take=5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"users",
+										"list"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "0"
+										},
+										{
+											"key": "take",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Id",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

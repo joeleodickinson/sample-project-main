@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BusinessEntities;
 using Core.Services.Orders.Interfaces;
+using Core.Services.Products.Interfaces;
 using Core.Services.Users.Interfaces;
 using WebApi.Models.Orders;
 
@@ -84,9 +85,10 @@ namespace WebApi.Controllers
         
         [Route("list")]
         [HttpGet]
-        public HttpResponseMessage GetOrders()
+        public HttpResponseMessage GetOrders(int skip, int take, Guid? userId = null)
         {
-            var orders = _getOrderService.GetAllOrders().Select(x => new OrderData(x)).ToList();
+            var orders = _getOrderService.GetAllOrders(userId)
+                .Skip(skip).Take(take).Select(x => new OrderData(x)).ToList();
             return Found(orders);
         }
 
