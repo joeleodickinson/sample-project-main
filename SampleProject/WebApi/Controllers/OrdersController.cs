@@ -81,6 +81,8 @@ namespace WebApi.Controllers
             return Found(new OrderData(order));
         }
         
+        // Note: I am unsure if this belongs here or in the UserController, but since it is an order related operation,
+        // I decided to keep it here for now, though the use of the userId in the route might be confusing.
         [Route("{userId:guid}/list")]
         [HttpGet]
         public HttpResponseMessage GetAllOrdersByUser(Guid userId)
@@ -121,5 +123,28 @@ namespace WebApi.Controllers
             _updateOrderService.UpdateOrder(order, order.User, order.ProductOrders.Values);
             return Found(new OrderData(order));
         }
+
+        [Route("{orderId:guid}/delete")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteOrder(Guid orderId)
+        {
+            var order = _getOrderService.GetOrder(orderId);
+            if (order is null)
+            {
+                return DoesNotExist();
+            }
+
+            _deleteOrderService.DeleteOrder(order);
+            return Found();
+        }
+
+        [Route("clear")]
+        [HttpDelete]
+        public HttpResponseMessage ClearOrders()
+        {
+            _deleteOrderService.DeleteAllOrders();
+            return Found();
+        }
+
     }
 }
