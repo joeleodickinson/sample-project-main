@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Odbc;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using BusinessEntities;
@@ -79,6 +80,14 @@ namespace WebApi.Controllers
             }
             
             return Found(new OrderData(order));
+        }
+        
+        [Route("list")]
+        [HttpGet]
+        public HttpResponseMessage GetOrders()
+        {
+            var orders = _getOrderService.GetAllOrders().Select(x => new OrderData(x)).ToList();
+            return Found(orders);
         }
 
         [Route("{orderId:guid}/update-quantity")]

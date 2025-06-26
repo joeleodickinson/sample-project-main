@@ -6,32 +6,22 @@ namespace BusinessEntities
 {
     public class Order : IdObject
     {
-        private DateTime _orderDate;
-        private User _user;
         private readonly Dictionary<Guid, ProductOrder> _productOrders = new Dictionary<Guid, ProductOrder>();
 
-        public DateTime OrderDate
-        {
-            get => _orderDate;
-            private set => _orderDate = value;
-        }
-        
-        public User User
-        {
-            get => _user;
-            private set => _user = value;
-        }
-        
+        public DateTime OrderDate { get; private set; }
+
+        public User User { get; private set; }
+
         public IReadOnlyDictionary<Guid, ProductOrder> ProductOrders => _productOrders;
         
         public void SetOrderDate(DateTime orderDate)
         {
-            _orderDate = orderDate;
+            OrderDate = orderDate;
         }
         
         public void SetUser(User user)
         {
-            _user = user ?? throw new ArgumentNullException("User cannot be null.");
+            User = user ?? throw new ArgumentNullException("User cannot be null.");
         }
         
         public void AddProductOrder(ProductOrder productOrder)

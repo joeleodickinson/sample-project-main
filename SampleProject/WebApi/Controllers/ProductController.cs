@@ -14,17 +14,14 @@ namespace WebApi.Controllers
     {
         private readonly IGetProductService _getProductService;
         private readonly ICreateProductService _createProductService;
-        private readonly IUpdateProductService _updateProductService;
         private readonly IDeleteProductService _deleteProductService;
         
         public ProductController(IGetProductService getProductService,
-                                 IUpdateProductService updateProductService,
                                  IDeleteProductService deleteProductService,
                                 ICreateProductService createProductService)
         {
             _getProductService = getProductService;
             _createProductService = createProductService;
-            _updateProductService = updateProductService;
             _deleteProductService = deleteProductService;
         }
         
