@@ -184,6 +184,7 @@
         <Compile Include="Models\Orders\OrderData.cs" />
         <Compile Include="Models\Orders\OrderModel.cs" />
         <Compile Include="Models\Orders\ProductOrderData.cs" />
+        <Compile Include="Models\Orders\ProductOrderModel.cs" />
         <Compile Include="Models\Products\ProductData.cs" />
         <Compile Include="Models\Products\ProductModel.cs" />
         <Compile Include="Models\Users\UserData.cs" />

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Odbc;
+using System.Net.Http;
 using System.Web.Http;
 using BusinessEntities;
 using Core.Services.Orders.Interfaces;
@@ -9,7 +11,7 @@ using WebApi.Models.Orders;
 namespace WebApi.Controllers
 {
     [RoutePrefix("orders")]
-    public class OrdersController : ApiController
+    public class OrdersController : BaseApiController
     {
         private readonly IGetOrderService _getOrderService;
         private readonly IGetProductService _getProductService;
@@ -35,16 +37,16 @@ namespace WebApi.Controllers
         
         [Route("{orderId:guid}/create")]
         [HttpPost]
-        public IHttpActionResult CreateOrder(Guid orderId, [FromBody] OrderModel model)
+        public HttpResponseMessage CreateOrder(Guid orderId, [FromBody] OrderModel model)
         {
             if (_getOrderService.GetOrder(orderId) != null)
             {
-                return Conflict(); // Already exists
+                return AlreadyExists();
             }
 
             if (!model.Validate(out var errorMessage))
             {
-                return BadRequest(errorMessage); // Invalid request
+                return InvalidRequest(errorMessage);
             }
             
             // Note: I was not sure if it would be better to store the full order moder or just the userId, ProductIds,
@@ -62,7 +64,62 @@ namespace WebApi.Controllers
                 productOrders.Add(productOrder);
             }
             var order = _createOrderService.CreateOrder(orderId, user, productOrders);
-            return CreatedAtRoute("GetOrder", new { orderId = order.Id }, new OrderData(order));
+            return Found(new OrderData(order));
+        }
+        
+        [Route("{orderId:guid}")]
+        [HttpGet]
+        public HttpResponseMessage GetOrder(Guid orderId)
+        {
+            var order = _getOrderService.GetOrder(orderId);
+            
+            if (order is null)
+            {
+                return DoesNotExist();
+            }
+            
+            return Found(new OrderData(order));
+        }
+        
+        [Route("{userId:guid}/list")]
+        [HttpGet]
+        public HttpResponseMessage GetAllOrdersByUser(Guid userId)
+        {
+            var user = _getUserService.GetUser(userId);
+            if (user is null)
+            {
+                return DoesNotExist();
+            }
+            
+            var orders = _getOrderService.GetOrdersByUser(userId);
+            var orderDataList = new List<OrderData>();
+            foreach (var order in orders)
+            {
+                orderDataList.Add(new OrderData(order));
+            }
+            return Found(orderDataList);
+        }
+
+        [Route("{orderId:guid}/update-quantity")]
+        [HttpPost]
+        public HttpResponseMessage UpdateOrder(Guid orderId, [FromBody] ProductOrderModel model)
+        {
+            if (!model.Validate(out var errorMessage))
+            {
+                return InvalidRequest(errorMessage);
+            }
+            
+            var order = _getOrderService.GetOrder(orderId);
+            if (order is null)
+            {
+                return DoesNotExist();
+            }
+            
+            // TODO: check if this works for both adding and updating
+            order.ProductOrders[model.ProductId].SetQuantity(model.Quantity);
+            
+            _updateOrderService.UpdateOrder(order, order.User, order.ProductOrders.Values);
+            return Found(new OrderData(order));
         }
     }
 }
