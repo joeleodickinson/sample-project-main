@@ -8,7 +8,7 @@ namespace BusinessEntities
     {
         private DateTime _orderDate;
         private User _user;
-        private Dictionary<Guid, ProductOrder> _productOrders = new Dictionary<Guid, ProductOrder>();
+        private readonly Dictionary<Guid, ProductOrder> _productOrders = new Dictionary<Guid, ProductOrder>();
 
         public DateTime OrderDate
         {
@@ -22,6 +22,8 @@ namespace BusinessEntities
             private set => _user = value;
         }
         
+        public IReadOnlyDictionary<Guid, ProductOrder> ProductOrders => _productOrders;
+        
         public void SetOrderDate(DateTime orderDate)
         {
             _orderDate = orderDate;
@@ -29,14 +31,14 @@ namespace BusinessEntities
         
         public void SetUser(User user)
         {
-            _user = user ?? throw new ArgumentNullException(nameof(user), "User cannot be null.");
+            _user = user ?? throw new ArgumentNullException("User cannot be null.");
         }
         
         public void AddProductOrder(ProductOrder productOrder)
         {
             if (productOrder == null)
             {
-                throw new ArgumentNullException(nameof(productOrder), "Product order cannot be null.");
+                throw new ArgumentNullException("Product order cannot be null.");
             }
 
             if (_productOrders.ContainsKey(productOrder.Id))

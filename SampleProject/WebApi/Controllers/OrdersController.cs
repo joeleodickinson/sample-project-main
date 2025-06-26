@@ -1,10 +1,68 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using BusinessEntities;
+using Core.Services.Orders.Interfaces;
+using Core.Services.Users.Interfaces;
+using WebApi.Models.Orders;
 
 namespace WebApi.Controllers
 {
     [RoutePrefix("orders")]
-    public class OrdersController
+    public class OrdersController : ApiController
     {
+        private readonly IGetOrderService _getOrderService;
+        private readonly IGetProductService _getProductService;
+        private readonly IGetUserService _getUserService;
+        private readonly ICreateOrderService _createOrderService;
+        private readonly IUpdateOrderService _updateOrderService;
+        private readonly IDeleteOrderService _deleteOrderService;
+
+        public OrdersController(IGetOrderService getOrderService,
+                                IGetProductService getProductService,
+                                IGetUserService getUserService,
+                                ICreateOrderService createOrderService,
+                                IUpdateOrderService updateOrderService,
+                                IDeleteOrderService deleteOrderService)
+        {
+            _getOrderService = getOrderService;
+            _getProductService = getProductService;
+            _getUserService = getUserService;
+            _createOrderService = createOrderService;
+            _updateOrderService = updateOrderService;
+            _deleteOrderService = deleteOrderService;
+        }
         
+        [Route("{orderId:guid}/create")]
+        [HttpPost]
+        public IHttpActionResult CreateOrder(Guid orderId, [FromBody] OrderModel model)
+        {
+            if (_getOrderService.GetOrder(orderId) != null)
+            {
+                return Conflict(); // Already exists
+            }
+
+            if (!model.Validate(out var errorMessage))
+            {
+                return BadRequest(errorMessage); // Invalid request
+            }
+            
+            // Note: I was not sure if it would be better to store the full order moder or just the userId, ProductIds,
+            // and other relevant data and construct the full order object only when requested, this would save storage.
+            // However, since we are using document storage, I figured using multiple calls on a get request would
+            // impede performance, therefore I decided to store the full order object.
+            var user = _getUserService.GetUser(model.UserId);
+            var productOrders = new List<ProductOrder>();
+            foreach (var product in model.Products)
+            {
+                var productEntity = _getProductService.GetProduct(product.Key);
+                var productOrder = new ProductOrder();
+                productOrder.SetProduct(productEntity);
+                productOrder.SetQuantity(product.Value);
+                productOrders.Add(productOrder);
+            }
+            var order = _createOrderService.CreateOrder(orderId, user, productOrders);
+            return CreatedAtRoute("GetOrder", new { orderId = order.Id }, new OrderData(order));
+        }
     }
 }
