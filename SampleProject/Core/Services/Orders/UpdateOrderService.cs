@@ -18,5 +18,20 @@ namespace Core.Services.Orders
                 order.AddProductOrder(productOrder);
             }
         }
+        
+        public void UpdateProductQuantity(Order order, Guid productId, int quantity)
+        {
+            order.UpdateQuantity(productId, quantity);
+        }
+
+        public void AddProductOrder(Order order, ProductOrder productOrder)
+        {
+            order.AddProductOrder(productOrder);
+        }
+
+        public void RemoveProductOrder(Order order, ProductOrder productOrder)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

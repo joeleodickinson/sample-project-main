@@ -2,7 +2,10 @@
 
 namespace BusinessEntities
 {
-    public class ProductOrder : IdObject
+    /// <summary>
+    /// Note: this is not an IdObject since we are going off the Product entity for the ID.
+    /// </summary>
+    public class ProductOrder
     {
         public Product Product { get; private set; }
 

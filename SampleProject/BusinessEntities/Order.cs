@@ -41,30 +41,31 @@ namespace BusinessEntities
                 throw new ArgumentNullException("Product order cannot be null.");
             }
 
-            if (_productOrders.ContainsKey(productOrder.Id))
+            if (_productOrders.ContainsKey(productOrder.Product.Id))
             {
-                throw new InvalidOperationException("Product order already exists in the order.");
+                // If the product order already exists, update the quantity
+                _productOrders[productOrder.Product.Id].SetQuantity(productOrder.Quantity);
             }
 
-            _productOrders[productOrder.Id] = productOrder;
+            _productOrders[productOrder.Product.Id] = productOrder;
         }
         
-        public void RemoveProductOrder(Guid productOrderId)
+        public void RemoveProductOrder(ProductOrder productOrder)
         {
-            if (!_productOrders.Remove(productOrderId))
+            if (!_productOrders.Remove(productOrder.Product.Id))
             {
                 throw new KeyNotFoundException("Product order not found in the order.");
             }
         }
         
-        public void UpdateQuantity(Guid productOrderId, int quantity)
+        public void UpdateQuantity(Guid productId, int quantity)
         {
-            if (!_productOrders.TryGetValue(productOrderId, out var productOrder))
+            if (!_productOrders.TryGetValue(productId, out var currProductOrder))
             {
                 throw new KeyNotFoundException("Product order not found in the order.");
             }
 
-            productOrder.SetQuantity(quantity);
+            currProductOrder.SetQuantity(quantity);
         }
         
         public decimal GetTotalPrice()

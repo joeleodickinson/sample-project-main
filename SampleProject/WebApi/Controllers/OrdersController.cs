@@ -96,10 +96,7 @@ namespace WebApi.Controllers
                 return DoesNotExist();
             }
             
-            // TODO: check if this works for both adding and updating
-            order.ProductOrders[model.ProductId].SetQuantity(model.Quantity);
-            
-            _updateOrderService.UpdateOrder(order, order.User, order.ProductOrders.Values);
+            _updateOrderService.UpdateProductQuantity(order, model.ProductId, model.Quantity);
             return Found(new OrderData(order));
         }
 
